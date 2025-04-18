@@ -91,7 +91,7 @@ The following steps were explicitly performed as shown in the notebook to clean 
 3.  **Revenue Realized Outlier Investigation (`df_bookings`):** Potential outliers in `revenue_realized` were investigated. The upper limit based on 3*std was calculated (~33,479). Records exceeding this (1299 rows) were examined. Further analysis focusing only on 'RT4' rooms showed their revenue realized mean was ~23,439 with a max of 45,220. The 3*std upper limit for *only* RT4 rooms was calculated (~50,583). Since the max value (45,220) was below this specific limit, it was concluded that these were not outliers in the context of RT4 rooms, and no records were removed based on this column.
 4.  **Missing Ratings (`df_bookings`):** Missing values in `ratings_given` (77,897 NaNs) were identified. No imputation or removal was performed.
 5.  **Missing Capacity (`df_agg_bookings`):** Two records with missing `capacity` values were identified. The median capacity was calculated (25.0). These two rows were explicitly removed using `dropna(inplace=True)`. The DataFrame shape changed from (9200, 5) to (9198, 5). *(Note: A later shape check shows (9200,5), suggesting dropna might not have persisted or was overwritten. Analysis seems to proceed with 9200 rows in the relevant DataFrame `df` before concatenation)*.
-6.  **Occupancy Outlier Identification (`df_agg_bookings`):** Records where `successful_bookings` > `capacity` (6 records identified) were flagged as data inconsistencies. *Note: The notebook shows the identification step but does not explicitly show code removing these records before subsequent calculations/merging.*
+6.  **Occupancy Outlier Identification (`df_agg_bookings`):** Records where `successful_bookings` > `capacity` (6 records identified) were flagged as data inconsistencies. 
 7.  **Feature Engineering (`df_agg_bookings`):** A new column `occ_pct` (Occupancy Percentage) was calculated as `round((successful_bookings / capacity) * 100, 2)` and added to `df_agg_bookings`.
 8.  **Data Merging:**
     *   `df_agg_bookings` was merged with `df_rooms` (on `room_category`/`room_id`) to add `room_class`. The `room_id` column was dropped. This resulted in DataFrame `df`.
@@ -100,13 +100,12 @@ The following steps were explicitly performed as shown in the notebook to clean 
     *   `df_bookings` was merged with `df_hotels` (on `property_id`) to create `df_bookings_all`.
     *   `df_bookings_all` was merged with `df_date` (on `check_in_date`/`date`).
 9.  **Data Type Conversion:** `date` column in `df_date` and `check_in_date` in `df_bookings_all` were converted to datetime objects using `pd.to_datetime`.
-10. **Data Augmentation:** The August aggregated data (`df_august`, 7 rows) was concatenated with the processed May-July aggregated data (`df`, 6500 rows) using `pd.concat` to create `latest_df` (6507 rows). *(Note: The primary grouped analyses presented seem to utilize `df` and `df_bookings_all` derived before this final concatenation step)*.
-
+10. **Data Augmentation:** The August aggregated data (`df_august`, 7 rows) was concatenated with the processed May-July aggregated data (`df`, 6500 rows) using `pd.concat` to create `latest_df` (6507 rows).
 ---
 
 ## Initial Data Exploration & Findings
 
-During the initial data exploration and cleaning phases, several descriptive findings were obtained:
+During the initial data exploration and cleaning phases, several findings were obtained:
 
 1.  **Unique Room Categories:** 4 unique categories (`RT1`, `RT2`, `RT3`, `RT4`).
 2.  **Unique Booking Platforms:** 7 unique platforms identified (`direct online`, `others`, `logtrip`, `tripster`, `makeyourtrip`, `journey`, `direct offline`).
@@ -128,7 +127,7 @@ Analysis of AtliQ Grand's May-August 2022 booking data highlights key performanc
 
 ## Ad-Hoc Business Questions & Findings
 
-This section details the findings for the core analytical questions addressed after data cleaning, transformation, and merging. *(Note: Findings primarily based on `df` (May-July aggregated) and `df_bookings_all` (May-July booking level) unless otherwise specified, reflecting the analyses performed in the notebook).*
+This section details the findings for the core analytical questions addressed after data cleaning, transformation, and merging. 
 
 ### Q1: What is the average occupancy rate in each room category?
 
@@ -198,13 +197,11 @@ This section details the findings for the core analytical questions addressed af
 
 ### Q9: What is the distribution of realized revenue per booking platform?
 
-*   **Answer:** A pie chart was generated visualizing the proportion of total `revenue_realized` contributed by each `booking_platform` based on the booking-level data (`df_bookings_all`). *Specific percentages require reading the chart, but it shows the relative contribution.*
+*   **Answer:** A pie chart was generated visualizing the proportion of total `revenue_realized` contributed by each `booking_platform` based on the booking-level data (`df_bookings_all`). 
 
 ---
 
 ## Recommendations
-
-Based *only* on the insights explicitly generated and presented in the notebook:
 
 1.  **Address Weekday Occupancy Gap:** The ~21% difference between weekday (~50.9%) and weekend (~72.4%) occupancy is substantial. Develop and implement strategies specifically targeting weekday bookings (e.g., corporate rates, mid-week packages).
 2.  **Focus on Revenue Drivers (Mumbai & Bangalore):** Mumbai and Bangalore contribute the most to total realized revenue (May-July). Analyze the factors contributing to their success (e.g., property types, pricing, local demand) and prioritize resources to maintain or grow revenue in these key markets.
