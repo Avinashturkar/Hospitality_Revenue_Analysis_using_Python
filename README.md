@@ -11,7 +11,7 @@
 3.  [Project Objective](#project-objective)
 4.  [Data Structure Overview](#data-structure-overview)
 5.  [Tools & Libraries Used](#tools--libraries-used)
-6.  [Data Loading & Initial Exploration](#data-loading--initial-exploration)
+6.  [Data Loading & Initial Inspection](#data-loading--initial-inspection)
 7.  [Data Cleaning & Transformation](#data-cleaning--transformation)
 8.  [Initial Data Exploration & Findings](#initial-data-exploration--findings)
 9.  [Executive Summary](#executive-summary)
@@ -75,7 +75,7 @@ The analysis is based on six CSV files covering booking data primarily from May 
 
 ---
 
-## Data Loading & Initial Exploration
+## Data Loading & Initial Inspection
 
 1.  All six CSV files were loaded into respective pandas DataFrames (`df_bookings`, `df_date`, `df_hotels`, `df_rooms`, `df_agg_bookings`, `df_august`).
 2.  Initial exploration was performed using `.head()`, `.shape`, `.unique()`, `.value_counts()`, `.describe()`, and `.info()` to understand data structure, content, and identify preliminary patterns or issues. A bar chart visualizing booking platform counts was also generated.
