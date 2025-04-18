@@ -13,7 +13,7 @@
 5.  [Tools & Libraries Used](#tools--libraries-used)
 6.  [Data Loading & Initial Inspection](#data-loading--initial-inspection)
 7.  [Data Cleaning & Transformation](#data-cleaning--transformation)
-8.  [Initial Data Exploration & Findings](#initial-data-exploration--findings)
+8.  [Data Exploration Findings](#data-exploration-findings)
 9.  [Executive Summary](#executive-summary)
 10. [Ad-Hoc Business Questions & Findings](#ad-hoc-business-questions--findings)
 11. [Recommendations](#recommendations)
@@ -103,7 +103,7 @@ The following steps were explicitly performed as shown in the notebook to clean 
 10. **Data Augmentation:** The August aggregated data (`df_august`, 7 rows) was concatenated with the processed May-July aggregated data (`df`, 6500 rows) using `pd.concat` to create `latest_df` (6507 rows).
 ---
 
-## Initial Data Exploration & Findings
+## Data Exploration Findings
 
 During the initial data exploration and cleaning phases, several findings were obtained:
 
